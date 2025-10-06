@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}Edit Location - Arele {% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white dark:bg-gray-800 shadow-xl rounded-lg p-8">
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Edit Location</h1>
+            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Update location information</p>
+        </div>
+
+        <form method="POST" class="space-y-6">
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Location Name</label>
+                <input type="text" name="name" id="name" value="{{ location.name }}" required class="block w-full px-3 py-2 border-b-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:border-primary dark:focus:border-teal-400 focus:outline-none transition-colors duration-200" placeholder="Enter location name">
+            </div>
+
+            <div>
+                <label for="type" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Location Type</label>
+                <select name="type" id="type" required class="block w-full px-3 py-2 border-b-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-900 dark:text-white focus:border-primary dark:focus:border-teal-400 focus:outline-none transition-colors duration-200">
+                    <option value="Warehouse" {% if location.type == 'Warehouse' %}selected{% endif %}>Warehouse</option>
+                    <option value="Retail" {% if location.type == 'Retail' %}selected{% endif %}>Retail</option>
+                    <option value="Fulfillment" {% if location.type == 'Fulfillment' %}selected{% endif %}>Fulfillment</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="address" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Address</label>
+                <textarea name="address" id="address" rows="3" class="block w-full px-3 py-2 border-b-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:border-primary dark:focus:border-teal-400 focus:outline-none transition-colors duration-200" placeholder="Enter location address">{{ location.address or '' }}</textarea>
+            </div>
+
+            <div class="flex items-center justify-end space-x-4 pt-6">
+                <a href="{{ url_for('locations') }}" class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-gray-800 transition-colors duration-200">
+                    Cancel
+                </a>
+                <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-gray-800 transition-colors duration-200">
+                    Update Location
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block title %}Add Movement - Arele {% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white dark:bg-gray-800 shadow-xl rounded-lg p-8">
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Add New Movement</h1>
+            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Record a product movement between locations</p>
+        </div>
+
+        <form method="POST" class="space-y-6">
+            <div>
+                <label for="product_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Product</label>
+                <select name="product_id" id="product_id" required class="block w-full px-3 py-2 border-b-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-900 dark:text-white focus:border-primary dark:focus:border-teal-400 focus:outline-none transition-colors duration-200">
+                    <option value="">Select a product</option>
+                    {% for product in products %}
+                    <option value="{{ product.id }}">{{ product.name }} ({{ product.sku }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="from_location_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-1 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                            </svg>
+                            From Location
+                        </span>
+                    </label>
+                    <select name="from_location_id" id="from_location_id" class="block w-full px-3 py-2 border-b-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-900 dark:text-white focus:border-primary dark:focus:border-teal-400 focus:outline-none transition-colors duration-200">
+                        <option value="">Select source location (leave blank for receipt)</option>
+                        {% for location in locations %}
+                        <option value="{{ location.id }}">{{ location.name }} ({{ location.type }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div>
+                    <label for="to_location_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-1 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                            </svg>
+                            To Location
+                        </span>
+                    </label>
+                    <select name="to_location_id" id="to_location_id" class="block w-full px-3 py-2 border-b-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-900 dark:text-white focus:border-primary dark:focus:border-teal-400 focus:outline-none transition-colors duration-200">
+                        <option value="">Select destination location (leave blank for dispatch)</option>
+                        {% for location in locations %}
+                        <option value="{{ location.id }}">{{ location.name }} ({{ location.type }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label for="qty" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Quantity</label>
+                <input type="number" name="qty" id="qty" min="1" required class="block w-full px-3 py-2 border-b-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:border-primary dark:focus:border-teal-400 focus:outline-none transition-colors duration-200" placeholder="Enter quantity">
+            </div>
+
+            <div>
+                <label for="note" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Note</label>
+                <textarea name="note" id="note" rows="3" class="block w-full px-3 py-2 border-b-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:border-primary dark:focus:border-teal-400 focus:outline-none transition-colors duration-200" placeholder="Enter movement note"></textarea>
+            </div>
+
+            <div class="flex items-center justify-end space-x-4 pt-6">
+                <a href="{{ url_for('movements') }}" class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-gray-800 transition-colors duration-200">
+                    Cancel
+                </a>
+                <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-gray-800 transition-colors duration-200">
+                    Add Movement
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
